@@ -27,7 +27,8 @@ namespace JustForFeed
         {
             InitializeComponent();
 
-            ////XmlReader r = XmlReader.Create("http://www.shisujie.com/rss?containerid=31");
+            XmlReader r = XmlReader.Create("http://www.shisujie.com/rss?containerid=31");
+            string rr = r.ReadInnerXml();
             //SyndicationFeed test = SyndicationFeed.Load(r); // new SyndicationFeed("", "", new Uri("http://www.shisujie.com/rss?containerid=31"));
 
             //IEnumerable<SyndicationItem> aa = test.Items;

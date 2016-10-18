@@ -1,0 +1,8 @@
+﻿前期以文件夹方式存储
+内容：
+	index.html——rss中直接获取的摘要
+	index_files——rss中所需要的资源，如图片，css等
+	source.html——源地址完整网页
+	source_files——源地址网页资源，如图片，css等
+
+后期考虑可否压缩为压缩包存储
