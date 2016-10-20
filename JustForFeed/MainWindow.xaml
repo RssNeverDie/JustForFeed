@@ -4,11 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustForFeed"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="只为订阅" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate1">
+            <Grid>
+                <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </Grid>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+            <VirtualizingStackPanel IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+    </Window.Resources>
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}"></Binding>
+    </Window.DataContext>
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="122,116,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Frame x:Name="frame" Content="Frame" HorizontalAlignment="Left" Height="128" Margin="264,116,0,0" VerticalAlignment="Top" Width="194"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="122*"/>
+            <ColumnDefinition Width="289*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="281*"/>
+            </Grid.RowDefinitions>
+            <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" />
+            <ListView Grid.Row="1" ItemsSource="{Binding FeedsView}" ItemTemplate="{DynamicResource DataTemplate1}" >
 
+            </ListView>
+        </Grid>
+        <ListView Grid.Column="1" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"></ListView>
+        <Frame x:Name="frame" Content="Frame" HorizontalAlignment="Left" Height="128" Margin="34.645,116,0,0" VerticalAlignment="Top" Width="194" Grid.Column="2"/>
     </Grid>
 </Window>

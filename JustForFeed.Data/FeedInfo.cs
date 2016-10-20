@@ -54,4 +54,14 @@ namespace JustForFeed.Data
             }
         }
     }
+
+    /// <summary>
+    /// 订阅源列表信息
+    /// </summary>
+    [XmlRoot("Feeds")]
+    public class Feeds
+    {
+        
+        public List<FeedInfo> Items { get; set; }
+    }
 }

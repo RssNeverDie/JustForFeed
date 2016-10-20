@@ -46,6 +46,9 @@
     <Compile Include="RSSHandle.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="feeds.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="FeedsData\关于本地网页存储.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -16,6 +17,9 @@ namespace JustForFeed.Data
     /// </summary>
     public class RSSHandle
     {
+
+        static HttpClient a = new HttpClient();
+
         /// <summary>
         /// 获取订阅信息
         /// </summary>
@@ -23,9 +27,11 @@ namespace JustForFeed.Data
         /// <returns>订阅信息</returns>
         public static List<FeedInfo> ReadFromXml(string feedsinfopath)
         {
-            Stream fs = new FileStream(Path.Combine(feedsinfopath, "feeds.xml"), FileMode.Open);
-            XmlSerializer ser = new XmlSerializer(typeof(List<FeedInfo>));
-            return ser.Deserialize(fs) as List<FeedInfo>;
+            using (Stream fs = new FileStream(Path.Combine(feedsinfopath, "feeds.xml"), FileMode.Open))
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(Feeds));
+                return (ser.Deserialize(fs) as Feeds).Items;
+            }
         }
 
         /// <summary>
@@ -35,9 +41,15 @@ namespace JustForFeed.Data
         /// <param name="feeds">订阅信息</param>
         public static void SaveFeedToXml(string feedsinfopath, List<FeedInfo> feeds)
         {
-            Stream fs = new FileStream(Path.Combine(feedsinfopath, "feeds.xml"), FileMode.Create, FileAccess.Write, FileShare.None);
-            XmlSerializer ser = new XmlSerializer(typeof(List<FeedInfo>));
-            ser.Serialize(fs, feeds);
+            using (Stream fs = new FileStream(Path.Combine(feedsinfopath, "feeds.xml"), FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+
+                Feeds f = new Feeds();
+                f.Items = feeds;
+
+                XmlSerializer ser = new XmlSerializer(typeof(Feeds));
+                ser.Serialize(fs, f);
+            }
         }
 
         public static void RefreshFeedsSort(List<FeedInfo> feeds)
@@ -63,9 +75,11 @@ namespace JustForFeed.Data
             {
                 return new List<ReadInfo>();
             }
-            Stream fs = new FileStream(Path.Combine(feedsinfopath, feedinfo.DataRelativePath, "reading.xml"), FileMode.Open);
-            XmlSerializer ser = new XmlSerializer(typeof(List<ReadInfo>));
-            return ser.Deserialize(fs) as List<ReadInfo>;
+            using (Stream fs = new FileStream(Path.Combine(feedsinfopath, feedinfo.DataRelativePath, "reading.xml"), FileMode.Open))
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(Reads));
+                return (ser.Deserialize(fs) as Reads).Items;
+            }
         }
 
         /// <summary>
@@ -85,9 +99,13 @@ namespace JustForFeed.Data
             {
                 Directory.CreateDirectory(readingfolderpath);
             }
-            Stream fs = new FileStream(Path.Combine(readingfolderpath, "reading.xml"), FileMode.Create, FileAccess.Write, FileShare.None);
-            XmlSerializer ser = new XmlSerializer(typeof(List<ReadInfo>));
-            ser.Serialize(fs, reading);
+            using (Stream fs = new FileStream(Path.Combine(readingfolderpath, "reading.xml"), FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                Reads r = new FeedsData.Reads();
+                r.Items = reading;
+                XmlSerializer ser = new XmlSerializer(typeof(Reads));
+                ser.Serialize(fs, r);
+            }
         }
 
         /// <summary>
@@ -112,7 +130,32 @@ namespace JustForFeed.Data
                 throw new Exception("未配置订阅源地址！");
             }
             WebClient w = new WebClient();
+            w.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
             w.DownloadFile(feedinfo.FeedUrl, Path.Combine(readingfolderpath, "rss.xml"));
+        }
+
+        /// <summary>
+        /// 获取 rss内容——返回字符串
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetRSSStringInfo(string url)
+        {
+            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
+            a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            return a.GetStringAsync(url).Result;
+        }
+
+        /// <summary>
+        /// 获取 rss内容——返回数据流
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static Stream GetRSSStreamInfo(string url)
+        {
+            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
+            a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            return a.GetStreamAsync(url).Result;
         }
 
     }

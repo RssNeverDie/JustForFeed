@@ -33,4 +33,10 @@ namespace JustForFeed.Data.FeedsData
         [XmlElement("LocalData")]
         public string LocalDataRelativePath { get; set; }
     }
+
+    [XmlRoot("Reads")]
+    public class Reads
+    {
+        public List<ReadInfo> Items { get; set; }
+    }
 }
