@@ -2,10 +2,13 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using JustForFeed.Data;
+using JustForFeed.Helper;
 using JustForFeed.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -25,6 +28,8 @@ namespace JustForFeed.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+
+        public ObservableCollection<FeedViewModel> NewFeeds { get; } = new ObservableCollection<FeedViewModel>();
 
         private List<Feed> feeds = new List<Feed>();
         /// <summary>
@@ -66,8 +71,16 @@ namespace JustForFeed.ViewModel
             Init();
         }
 
+        //Task innn()
+        //{
+        //    FeedDataHandler.GetFeedsAsync
+        //}
+
         void Init()
         {
+
+
+
             try
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;

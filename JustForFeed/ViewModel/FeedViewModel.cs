@@ -15,6 +15,6 @@ namespace JustForFeed.ViewModel
 
         public string Name { get; set; }
 
-        public ObservableCollection<ArticleViewModel> Articles { get; set; }
+        public ObservableCollection<ArticleViewModel> Articles { get; set; } = new ObservableCollection<ArticleViewModel>();
     }
 }
