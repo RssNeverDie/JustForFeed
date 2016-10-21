@@ -54,7 +54,7 @@ namespace JustForFeed.Helper
 
             using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "feeds.xml"), FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                var q = from c in feeds select new FeedSketch { link = c.Link.ToString() };
+                var q = from c in feeds select new FeedSketch { link = c.Link.ToString(), Name = c.Name };
                 DataContractSerializer dcs = new DataContractSerializer(typeof(IEnumerable<FeedSketch>));
                 dcs.WriteObject(fs, q);
 
@@ -63,6 +63,22 @@ namespace JustForFeed.Helper
             }
         }
 
+        /// <summary>
+        /// 离线存储订阅数据
+        /// </summary>
+        /// <param name="feed"></param>
+        public static void OfflineFeed(this FeedViewModel feed)
+        {
+                        
+            using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "Data", feed.Name + ".xml"), FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                DataContractSerializer dcs = new DataContractSerializer(typeof(FeedViewModel));
+                dcs.WriteObject(fs, feed);
+
+                //XmlSerializer ser = new XmlSerializer(typeof(FeedViewModel));
+                //ser.Serialize(fs, favorites);
+            }
+        }
 
         /// <summary>
         /// Gets the favorites feed, either from local storage, 
@@ -120,6 +136,17 @@ namespace JustForFeed.Helper
                     {
                         continue;
                     }
+                    if (item.Name != null && File.Exists(Path.Combine(RunTime.DataPath, "Data", item.Name + ".xml")))
+                    {
+                        using (Stream fs1 = new FileStream(Path.Combine(RunTime.DataPath, "Data", item.Name + ".xml"), FileMode.Open))
+                        {
+                            DataContractSerializer dcs1 = new DataContractSerializer(typeof(FeedViewModel));
+                            var tempa = (FeedViewModel)dcs1.ReadObject(fs1);
+                            feeds.Add(tempa);
+                            continue;
+                        }
+                    }
+
                     var feedvm = new FeedViewModel { Link = new Uri(item.link) };
                     feeds.Add(feedvm);
                     var withoutAwait = feedvm.RefreshAsync();
@@ -195,9 +222,9 @@ namespace JustForFeed.Helper
 
                 feed.Items.Select(item => new ArticleViewModel
                 {
-                    Title = item.Title.Text//,
-                    //Summary = item.Summary == null ? string.Empty :
-                    //    item.Summary.Text.RegexRemove("\\&.{0,4}\\;").RegexRemove("<.*?>"),
+                    Title = item.Title.Text,
+                    Summary = item.Summary == null ? string.Empty :
+                        item.Summary.Text//.RegexRemove("\\&.{0,4}\\;").RegexRemove("<.*?>"),
                     //Author = item.Authors.Select(a => a.NodeValue).FirstOrDefault(),
                     //Link = item.ItemUri ?? item.Links.Select(l => l.Uri).FirstOrDefault(),
                     //PublishedDate = item.PublishedDate

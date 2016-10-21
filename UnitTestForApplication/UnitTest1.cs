@@ -37,10 +37,13 @@ namespace UnitTestForApplication
             FeedViewModel feed = new FeedViewModel();
             feed.Link = new Uri("http://www.shisujie.com/rss?containerid=31");
             feed.Name = "奇葩史";
+            feed.RefreshAsync().Wait();
 
             List<FeedViewModel> feeds = new List<FeedViewModel>();
             feeds.Add(feed);
             feeds.SaveAsync();
+
+            feed.OfflineFeed();
 
         }
 
@@ -59,6 +62,7 @@ namespace UnitTestForApplication
                 foreach (var subitem in item.Articles)
                 {
                     Console.WriteLine(subitem.Title);
+                    //Console.WriteLine("\t" + subitem.Summary);
                 }
             }
         }

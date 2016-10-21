@@ -18,6 +18,6 @@ namespace JustForFeed.Model
         public string link { get; set; }
 
         [DataMember(Order = 2)]
-        public string aa = "111";
+        public string Name  { get; set; }
     }
 }
