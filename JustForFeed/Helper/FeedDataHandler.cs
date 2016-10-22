@@ -17,8 +17,7 @@ namespace JustForFeed.Helper
 {
     public static class FeedDataHandler
     {
-
-
+        
         /// <summary>
         /// Saves the favorites feed (the first feed of the feeds list) to local storage. 
         /// </summary>

@@ -1,16 +1,10 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using JustForFeed.Data;
 using JustForFeed.Helper;
-using JustForFeed.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 

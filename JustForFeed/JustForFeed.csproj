@@ -91,11 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\FeedDataHandler.cs" />
-    <Compile Include="Model\Feed.cs" />
     <Compile Include="Model\FeedSketch.cs" />
     <Compile Include="RunTime.cs" />
     <Compile Include="UserConfig.cs" />
-    <Compile Include="ViewModel\AddNewFeedViewModel.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\FeedViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -155,12 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JustForFeed.Data\JustForFeed.Data.csproj">
-      <Project>{E81D94E5-5F46-49C2-8E04-5270B2E0F082}</Project>
-      <Name>JustForFeed.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
