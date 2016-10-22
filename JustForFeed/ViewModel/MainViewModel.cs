@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Xml;
 
 namespace JustForFeed.ViewModel
 {
@@ -31,27 +33,45 @@ namespace JustForFeed.ViewModel
 
         public ObservableCollection<FeedViewModel> NewFeeds { get; } = new ObservableCollection<FeedViewModel>();
 
-        private List<Feed> feeds = new List<Feed>();
-        /// <summary>
-        /// 订阅源列表
-        /// </summary>
-        public List<Feed> Feeds
+        private FeedViewModel currentFeed = new FeedViewModel();
+        public FeedViewModel CurrentFeed
         {
-            get { return feeds; }
+            get { return currentFeed; }
             set
             {
-                Set(() => Feeds, ref feeds, value);
-                FeedsView = new ListCollectionView(Feeds);
-                RaisePropertyChanged(() => FeedsView);
+                this.currentFeed = value;
+                RaisePropertyChanged(() => CurrentFeed);
             }
         }
 
-        public CollectionView FeedsView { get; private set; }
+        private ArticleViewModel currentarticle;
+
+        public ArticleViewModel CurrentArticle
+        {
+            get { return currentarticle; }
+            set
+            {
+                currentarticle = value;
+                RaisePropertyChanged(() => CurrentArticle);
+            }
+        }
+
 
         /// <summary>
         /// 添加订阅命令
         /// </summary>
         public ICommand AddNewFeedCommand { get; set; }
+        /// <summary>
+        /// 添加订阅源命令
+        /// </summary>
+        public ICommand ConfirmAddCommand { get; set; }
+
+        public ICommand RemoveFeedCommand { get; set; }
+
+        /// <summary>
+        /// 更新订阅源名称
+        /// </summary>
+        public ICommand RefreshFeedNameCommand { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -67,38 +87,18 @@ namespace JustForFeed.ViewModel
             ////    // Code runs "for real"
             ////}
             AddNewFeedCommand = new RelayCommand(AddNewFeed);
+            ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
+            RemoveFeedCommand = new RelayCommand(RemoveFeed);
+
+            RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
 
             Init();
         }
 
-        //Task innn()
-        //{
-        //    FeedDataHandler.GetFeedsAsync
-        //}
-
         void Init()
         {
-
-
-
-            try
-            {
-                string path = AppDomain.CurrentDomain.BaseDirectory;
-                List<FeedInfo> infolist = RSSHandle.ReadFromXml(path);
-                if (infolist != null)
-                {
-                    var feedstemp = from c in infolist
-                                    select new Feed
-                                    {
-                                        Name = c.Name
-                                    };
-                    Feeds = feedstemp.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
+            NewFeeds.Clear();
+            FeedDataHandler.GetFeedsAsync().ForEach(feed => NewFeeds.Add(feed));
         }
 
         /// <summary>
@@ -106,13 +106,101 @@ namespace JustForFeed.ViewModel
         /// </summary>
         void AddNewFeed()
         {
+            CurrentFeed = new ViewModel.FeedViewModel();
             Messenger.Default.Send<NotificationMessageWithCallback>(new NotificationMessageWithCallback("打开添加订阅源窗口", new Action(() =>
             {
-                //成功添加后，刷新列表
-                Init();
+
             })), "ShowAddFeed");
         }
 
+        async void ConfirmAdd()
+        {
+            try
+            {
+                NewFeeds.Add(CurrentFeed);
+                await CurrentFeed.RefreshAsync();
+                NewFeeds.SaveAsync();
+                //string path = AppDomain.CurrentDomain.BaseDirectory;
+                //List<FeedInfo> infolist = RSSHandle.ReadFromXml(path);
+                //FeedInfo newfeed = new FeedInfo { FeedUrl = this.FeedUrl, Name = FeedName };
+                //if (infolist == null)
+                //    infolist = new List<FeedInfo>();
+                //infolist.Add(newfeed);
+                //RSSHandle.SaveFeedToXml(path, infolist);
+
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("成功添加"), "AddSuccess");
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        void RemoveFeed()
+        {
+            if (NewFeeds.Contains(CurrentFeed))
+            {
+                NewFeeds.Remove(CurrentFeed);
+                NewFeeds.SaveAsync();
+            }
+        }
+
+        /// <summary>
+        /// 验证订阅源可用性_并更新名称
+        /// </summary>
+        bool IsFeedCanUse()
+        {
+            try
+            {
+                //if (string.IsNullOrEmpty(CurrentFeed.LinkString))
+                //{
+                //    return false;
+                //}
+                if (CurrentFeed.Link == null)
+                { return false; }
+
+                XmlReader r = XmlReader.Create(FeedDataHandler.GetRSSStreamInfo1(CurrentFeed.Link));
+
+                SyndicationFeed test = SyndicationFeed.Load(r);
+                if (string.IsNullOrEmpty(CurrentFeed.Name))
+                {
+                    CurrentFeed.Name = test.Title.Text;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 更新订阅源名称
+        /// </summary>
+        async void RefreshFeedName()
+        {
+            try
+            {
+                //if (string.IsNullOrEmpty(CurrentFeed.LinkString))
+                //{
+                //    return false;
+                //}
+                if (CurrentFeed.Link == null)
+                { return; }
+
+                XmlReader r = XmlReader.Create(await FeedDataHandler.GetRSSStreamInfo(CurrentFeed.Link));
+
+                SyndicationFeed test = SyndicationFeed.Load(r);
+
+                CurrentFeed.Name = test.Title.Text;
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
 
     }
 }

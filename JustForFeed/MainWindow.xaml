@@ -12,6 +12,11 @@
                 <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="DataTemplate2">
+            <Grid>
+                <TextBlock Text="{Binding Title,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </Grid>
+        </DataTemplate>
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
             <VirtualizingStackPanel IsItemsHost="True"/>
         </ItemsPanelTemplate>
@@ -27,15 +32,17 @@
         </Grid.ColumnDefinitions>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="281*"/>
             </Grid.RowDefinitions>
             <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" />
-            <ListView Grid.Row="1" ItemsSource="{Binding FeedsView}" ItemTemplate="{DynamicResource DataTemplate1}" >
+            <ListView Grid.Row="1" ItemsSource="{Binding NewFeeds}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" >
 
             </ListView>
+            <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" HorizontalAlignment="Left" Margin="13,29,0,0" VerticalAlignment="Top" Width="75"/>
         </Grid>
-        <ListView Grid.Column="1" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"></ListView>
-        <Frame x:Name="frame" Content="Frame" HorizontalAlignment="Left" Height="128" Margin="34.645,116,0,0" VerticalAlignment="Top" Width="194" Grid.Column="2"/>
+        <ListView x:Name="listarticle" Grid.Column="1"  ItemTemplate="{DynamicResource DataTemplate2}" ItemsSource="{Binding CurrentFeed.Articles}" SelectedItem="{Binding CurrentArticle}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"></ListView>
+        <Frame  x:Name="frame"  Grid.Column="2" NavigationUIVisibility="Hidden" >
+        </Frame>
     </Grid>
 </Window>

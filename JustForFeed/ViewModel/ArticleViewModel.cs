@@ -15,5 +15,8 @@ namespace JustForFeed.ViewModel
 
         [DataMember]
         public string Summary { get; set; }
+
+        [DataMember]
+        public Uri Link { get; set; }
     }
 }

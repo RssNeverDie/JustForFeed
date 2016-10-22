@@ -15,7 +15,7 @@ namespace JustForFeed.Model
     {
 
         [DataMember(Order = 1)]
-        public string link { get; set; }
+        public string Link { get; set; }
 
         [DataMember(Order = 2)]
         public string Name  { get; set; }

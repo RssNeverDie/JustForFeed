@@ -22,20 +22,32 @@ namespace JustForFeed.View
     public partial class WindowAddNewFeed : Window
     {
 
-        AddNewFeedViewModel ViewModel
-        {
-            get { return this.DataContext as AddNewFeedViewModel; }
-            set { this.DataContext = value; }
-        }
+        //AddNewFeedViewModel ViewModel
+        //{
+        //    get { return this.DataContext as AddNewFeedViewModel; }
+        //    set { this.DataContext = value; }
+        //}
 
         public WindowAddNewFeed()
         {
             InitializeComponent();
             this.btn_cancle.Click += Btn_cancle_Click;
-            ViewModel = new AddNewFeedViewModel();
+            // ViewModel = new AddNewFeedViewModel();
+            this.Loaded += WindowAddNewFeed_Loaded;
+            this.Unloaded += WindowAddNewFeed_Unloaded;
 
+        }
+
+        private void WindowAddNewFeed_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Unregister<NotificationMessage>(this, "AddSuccess", c);
+        }
+
+        private void WindowAddNewFeed_Loaded(object sender, RoutedEventArgs e)
+        {
             Messenger.Default.Register<NotificationMessage>(this, "AddSuccess", c);
         }
+
 
         /// <summary>
         /// 取消添加

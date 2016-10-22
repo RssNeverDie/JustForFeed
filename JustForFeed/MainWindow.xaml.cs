@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using JustForFeed.View;
+using JustForFeed.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
@@ -25,6 +27,12 @@ namespace JustForFeed
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        MainViewModel ViewModel
+        {
+            get { return this.DataContext as MainViewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +49,24 @@ namespace JustForFeed
             //this.frame.Navigate(web);
 
             this.Loaded += MainWindow_Loaded;
+            this.listarticle.SelectionChanged += Listarticle_SelectionChanged;
         }
+
+        private void Listarticle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel.CurrentArticle == null)
+            {
+                this.frame.Content = string.Empty;
+                return;
+            }
+
+            PageArticle page = new View.PageArticle();
+            page.SetViewModel(ViewModel.CurrentArticle);
+            //WebBrowser web = new WebBrowser();
+            //web.NavigateToString(ConvertExtendedASCII(ViewModel.CurrentArticle.Summary));
+            this.frame.Navigate(page);
+        }
+
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,6 +77,7 @@ namespace JustForFeed
         {
             WindowAddNewFeed win = new WindowAddNewFeed();
             win.Owner = this;
+            win.DataContext = this.DataContext;
             if (win.ShowDialog() ?? false)
             {
                 //添加成功执行回调

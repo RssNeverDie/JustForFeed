@@ -54,7 +54,7 @@ namespace JustForFeed.Helper
 
             using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "feeds.xml"), FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                var q = from c in feeds select new FeedSketch { link = c.Link.ToString(), Name = c.Name };
+                var q = from c in feeds select new FeedSketch { Link = c.Link.ToString(), Name = c.Name };
                 DataContractSerializer dcs = new DataContractSerializer(typeof(IEnumerable<FeedSketch>));
                 dcs.WriteObject(fs, q);
 
@@ -69,7 +69,7 @@ namespace JustForFeed.Helper
         /// <param name="feed"></param>
         public static void OfflineFeed(this FeedViewModel feed)
         {
-                        
+
             using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "Data", feed.Name + ".xml"), FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 DataContractSerializer dcs = new DataContractSerializer(typeof(FeedViewModel));
@@ -132,7 +132,7 @@ namespace JustForFeed.Helper
 
                 foreach (var item in feeddata)
                 {
-                    if (item.link == null)
+                    if (item.Link == null)
                     {
                         continue;
                     }
@@ -147,7 +147,7 @@ namespace JustForFeed.Helper
                         }
                     }
 
-                    var feedvm = new FeedViewModel { Link = new Uri(item.link) };
+                    var feedvm = new FeedViewModel { Link = new Uri(item.Link) };
                     feeds.Add(feedvm);
                     var withoutAwait = feedvm.RefreshAsync();
                 }
@@ -223,10 +223,9 @@ namespace JustForFeed.Helper
                 feed.Items.Select(item => new ArticleViewModel
                 {
                     Title = item.Title.Text,
-                    Summary = item.Summary == null ? string.Empty :
-                        item.Summary.Text//.RegexRemove("\\&.{0,4}\\;").RegexRemove("<.*?>"),
+                    Summary = item.Summary == null ? string.Empty : item.Summary.Text,//.RegexRemove("\\&.{0,4}\\;").RegexRemove("<.*?>"),
                     //Author = item.Authors.Select(a => a.NodeValue).FirstOrDefault(),
-                    //Link = item.ItemUri ?? item.Links.Select(l => l.Uri).FirstOrDefault(),
+                    Link = item.BaseUri ?? item.Links.Select(l => l.Uri).FirstOrDefault(),
                     //PublishedDate = item.PublishedDate
                 })
                 .ToList().ForEach(article =>
@@ -263,6 +262,18 @@ namespace JustForFeed.Helper
             //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
             a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
             return await a.GetStreamAsync(url);
+        }
+
+        /// <summary>
+        /// 获取 rss内容——返回数据流
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static Stream GetRSSStreamInfo1(Uri url)
+        {
+            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
+            a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
+            return a.GetStreamAsync(url).Result;
         }
 
         /// <summary>

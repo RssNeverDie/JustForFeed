@@ -1,0 +1,21 @@
+﻿<Page x:Class="JustForFeed.View.PageArticle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JustForFeed.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="PageArticle">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="259*"/>
+        </Grid.RowDefinitions>
+        <WebBrowser x:Name="webbr"  Grid.Row="1"/>
+        <Button x:Name="button" Content="查看原文" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Height="19"/>
+        <Button x:Name="button1" Content="浏览器中打开" HorizontalAlignment="Left" Margin="114,12,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+
+    </Grid>
+</Page>
