@@ -10,12 +10,16 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="41"/>
-            <RowDefinition Height="259*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width" VerticalAlignment="Center">
+            <Button x:Name="button" Content="查看原文" Width="75" Click="button_Click" d:LayoutOverrides="TopPosition, BottomPosition" Margin="10,0,0,0"/>
+            <Button x:Name="button1" Content="浏览器中打开" HorizontalAlignment="Left" Width="75" Click="button1_Click" Margin="10,0,0,0"/>
+
+        </StackPanel>
+
         <WebBrowser x:Name="webbr"  Grid.Row="1"/>
-        <Button x:Name="button" Content="查看原文" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Height="19"/>
-        <Button x:Name="button1" Content="浏览器中打开" HorizontalAlignment="Left" Margin="114,12,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
 
     </Grid>
 </Page>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustForFeed"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="只为订阅" Height="350" Width="525">
+        Title="只为订阅" Height="768" Width="1024">
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate1">
             <Grid>
@@ -26,22 +26,24 @@
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="122*"/>
-            <ColumnDefinition Width="289*"/>
+            <ColumnDefinition Width="100*" MinWidth="10"/>
+            <ColumnDefinition Width="120*" MinWidth="10"/>
+            <ColumnDefinition Width="300*" MinWidth="10"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid Margin="0,0,5,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="281*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" />
-            <ListView Grid.Row="1" ItemsSource="{Binding NewFeeds}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" >
-
-            </ListView>
-            <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" HorizontalAlignment="Left" Margin="13,29,0,0" VerticalAlignment="Top" Width="75"/>
+            <StackPanel Orientation="Vertical" d:LayoutOverrides="Height" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" Width="75" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,0,0,5" />
+                <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" Margin="0,5,0,0" Width="75"/>
+            </StackPanel>
+            <ListView Grid.Row="1" ItemsSource="{Binding NewFeeds}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" />
         </Grid>
-        <ListView x:Name="listarticle" Grid.Column="1"  ItemTemplate="{DynamicResource DataTemplate2}" ItemsSource="{Binding CurrentFeed.Articles}" SelectedItem="{Binding CurrentArticle}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}"></ListView>
+        <GridSplitter x:Name="gridSplitter" Width="5"/>
+        <ListView x:Name="listarticle" Grid.Column="1"  ItemTemplate="{DynamicResource DataTemplate2}" ItemsSource="{Binding CurrentFeed.Articles}" SelectedItem="{Binding CurrentArticle}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" Margin="0,0,5,0"></ListView>
+        <GridSplitter x:Name="gridSplitter1" Width="5" Grid.Column="1"/>
         <Frame  x:Name="frame"  Grid.Column="2" NavigationUIVisibility="Hidden" >
         </Frame>
     </Grid>

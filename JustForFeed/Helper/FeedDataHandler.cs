@@ -17,7 +17,7 @@ namespace JustForFeed.Helper
 {
     public static class FeedDataHandler
     {
-        
+
         /// <summary>
         /// Saves the favorites feed (the first feed of the feeds list) to local storage. 
         /// </summary>
@@ -146,7 +146,7 @@ namespace JustForFeed.Helper
                         }
                     }
 
-                    var feedvm = new FeedViewModel { Link = new Uri(item.Link) };
+                    var feedvm = new FeedViewModel { Name = item.Name, Link = new Uri(item.Link) };
                     feeds.Add(feedvm);
                     var withoutAwait = feedvm.RefreshAsync();
                 }

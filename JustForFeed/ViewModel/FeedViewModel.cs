@@ -33,6 +33,7 @@ namespace JustForFeed.ViewModel
             set
             {
                 if (string.IsNullOrWhiteSpace(value)) return;
+
                 if (!value.Trim().StartsWith("http://") && !value.Trim().StartsWith("https://"))
                 {
                     //IsInError = true;
