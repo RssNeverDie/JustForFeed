@@ -218,7 +218,12 @@ namespace JustForFeed.ViewModel
         /// </summary>
         public void SyncFavoritesFeed(ArticleViewModel article)
         {
-            if (article.IsStarred) FavoritesFeed.Articles.Insert(0, article);
+            if (article.IsStarred)
+            {
+                if (FavoritesFeed.Articles.Contains(article))
+                    return;
+                FavoritesFeed.Articles.Insert(0, article);
+            }
             else
             {
                 FavoritesFeed.Articles.Remove(article);

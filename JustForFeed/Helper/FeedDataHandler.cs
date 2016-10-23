@@ -96,7 +96,7 @@ namespace JustForFeed.Helper
                     //dcs.WriteObject(fs, favorites);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -229,14 +229,14 @@ namespace JustForFeed.Helper
                 {
                     Title = item.Title.Text,
                     Summary = item.Summary == null ? string.Empty : item.Summary.Text,//.RegexRemove("\\&.{0,4}\\;").RegexRemove("<.*?>"),
-                    //Author = item.Authors.Select(a => a.NodeValue).FirstOrDefault(),
+                    Author = item.Authors.Count > 0 ? item.Authors.Select(a => a.Name).FirstOrDefault() : feed.Title.Text,
                     Link = item.BaseUri ?? item.Links.Select(l => l.Uri).FirstOrDefault(),
-                    //PublishedDate = item.PublishedDate
+                    PublishedDate = item.PublishDate
                 })
                 .ToList().ForEach(article =>
                 {
                     //feedViewModel.Articles.Add(article);
-                    var favorites =  ServiceLocator.Current.GetInstance<MainViewModel>().FavoritesFeed;
+                    var favorites = ServiceLocator.Current.GetInstance<MainViewModel>().FavoritesFeed;
                     var existingCopy = favorites.Articles.FirstOrDefault(a => a.Equals(article));
                     article = existingCopy ?? article;
                     if (!feedViewModel.Articles.Contains(article)) feedViewModel.Articles.Add(article);

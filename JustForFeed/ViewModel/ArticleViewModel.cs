@@ -12,17 +12,22 @@ using GalaSoft.MvvmLight.CommandWpf;
 namespace JustForFeed.ViewModel
 {
     [DataContract(Name = "Article")]
-    [KnownType(typeof(ICommand))]
     public class ArticleViewModel : BaseViewModel
     {
         [DataMember]
         public string Title { get; set; }
 
         [DataMember]
+        public string Author { get; set; }
+
+        [DataMember]
         public string Summary { get; set; }
 
         [DataMember]
         public Uri Link { get; set; }
+
+        [DataMember]
+        public DateTimeOffset PublishedDate { get; set; }
 
         private bool isstarred = false;
         [DataMember]
@@ -36,15 +41,25 @@ namespace JustForFeed.ViewModel
             }
         }
 
-        public ICommand StarArticleCommand { get; set; }
-        public string aa { get; set; } = "222";
-       
+        private ICommand sta;
+        /// <summary>
+        /// 由于反序列时，未正确执行构造函数，无法在构造里初始化，故利用属性初始化
+        /// </summary>
+        public ICommand StarArticleCommand
+        {
+            get
+            {
+                if (sta == null)
+                {
+                    sta = new RelayCommand(StarArticle);
+                }
+                return sta;
+            }
+        }
+
         public ArticleViewModel()
         {
-            //
-            //MainViewModel aa = new ViewModel.MainViewModel();
-            StarArticleCommand = new RelayCommand(StarArticle);
-            aa = "111";
+
         }
 
         void StarArticle()
