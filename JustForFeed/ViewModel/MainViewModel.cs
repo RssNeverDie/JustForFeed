@@ -100,20 +100,21 @@ namespace JustForFeed.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-            AddNewFeedCommand = new RelayCommand(AddNewFeed);
-            ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
-            RemoveFeedCommand = new RelayCommand(RemoveFeed, CanRemoveFeed);
-            RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
+            if (IsInDesignMode)
+            {
+                // Code runs in Blend --> create design time data.
+            }
+            else
+            {
+                // Code runs "for real"
 
-            Init();
+                AddNewFeedCommand = new RelayCommand(AddNewFeed);
+                ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
+                RemoveFeedCommand = new RelayCommand(RemoveFeed, CanRemoveFeed);
+                RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
+
+                Init();
+            }
         }
 
         /// <summary>

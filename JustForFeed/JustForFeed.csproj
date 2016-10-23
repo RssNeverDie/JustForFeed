@@ -108,6 +108,9 @@
     <Compile Include="View\WindowAddNewFeed.xaml.cs">
       <DependentUpon>WindowAddNewFeed.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\WindowSetting.xaml.cs">
+      <DependentUpon>WindowSetting.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WindowAddNewFeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WindowSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -51,6 +51,14 @@ namespace JustForFeed
             this.Loaded += MainWindow_Loaded;
             this.Unloaded += MainWindow_Unloaded;
             this.listarticle.SelectionChanged += Listarticle_SelectionChanged;
+            this.btn_setting.Click += Btn_setting_Click;
+        }
+
+        private void Btn_setting_Click(object sender, RoutedEventArgs e)
+        {
+            WindowSetting win = new View.WindowSetting();
+            win.Owner = this;
+            win.ShowDialog();
         }
 
         private void MainWindow_Unloaded(object sender, RoutedEventArgs e)

@@ -89,6 +89,10 @@
             <ColumnDefinition Width="120*" MinWidth="10"/>
             <ColumnDefinition Width="300*" MinWidth="10"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
         <Grid Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
@@ -105,5 +109,8 @@
         <GridSplitter x:Name="gridSplitter1" Width="5" Grid.Column="1"/>
         <Frame  x:Name="frame"  Grid.Column="2" NavigationUIVisibility="Hidden" >
         </Frame>
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="3" >
+            <Button Content="设置" Name="btn_setting"></Button>
+        </StatusBar>
     </Grid>
 </Window>
