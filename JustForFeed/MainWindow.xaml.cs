@@ -49,9 +49,27 @@ namespace JustForFeed
             //this.frame.Navigate(web);
 
             this.Loaded += MainWindow_Loaded;
+            this.Unloaded += MainWindow_Unloaded;
             this.listarticle.SelectionChanged += Listarticle_SelectionChanged;
         }
 
+        private void MainWindow_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Unregister<NotificationMessageWithCallback>(this, "ShowAddFeed", ShowAddFeed);
+            Messenger.Default.Unregister<NotificationMessageWithCallback>(this, "ShowUserCheckedForm", ShowUserCheckedForm);
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Messenger.Default.Register<NotificationMessageWithCallback>(this, "ShowAddFeed", ShowAddFeed);
+            Messenger.Default.Register<NotificationMessageWithCallback>(this, "ShowUserCheckedForm", ShowUserCheckedForm);
+        }
+
+        /// <summary>
+        /// 文章列表选择改变
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Listarticle_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ViewModel.CurrentArticle == null)
@@ -62,17 +80,13 @@ namespace JustForFeed
 
             PageArticle page = new View.PageArticle();
             page.SetViewModel(ViewModel.CurrentArticle);
-            //WebBrowser web = new WebBrowser();
-            //web.NavigateToString(ConvertExtendedASCII(ViewModel.CurrentArticle.Summary));
             this.frame.Navigate(page);
         }
 
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Messenger.Default.Register<NotificationMessageWithCallback>(this, "ShowAddFeed", ShowAddFeed);
-        }
-
+        /// <summary>
+        /// 显示添加订阅源窗体
+        /// </summary>
+        /// <param name="sender"></param>
         void ShowAddFeed(NotificationMessageWithCallback sender)
         {
             WindowAddNewFeed win = new WindowAddNewFeed();
@@ -81,6 +95,18 @@ namespace JustForFeed
             if (win.ShowDialog() ?? false)
             {
                 //添加成功执行回调
+                sender.Execute();
+            }
+        }
+
+        /// <summary>
+        /// 显示用户确认窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        void ShowUserCheckedForm(NotificationMessageWithCallback sender)
+        {
+            if (MessageBoxResult.OK == MessageBox.Show(sender.Notification, "确认", MessageBoxButton.OKCancel))
+            {
                 sender.Execute();
             }
         }

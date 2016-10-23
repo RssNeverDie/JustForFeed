@@ -98,7 +98,7 @@
                 <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" Width="75" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,0,0,5" />
                 <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" Margin="0,5,0,0" Width="75"/>
             </StackPanel>
-            <ListView Grid.Row="1" ItemsSource="{Binding NewFeeds}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" />
+            <ListView Grid.Row="1" ItemsSource="{Binding FeedsWithFavorites}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" />
         </Grid>
         <GridSplitter x:Name="gridSplitter" Width="5"/>
         <ListView x:Name="listarticle" Grid.Column="1"  ItemTemplate="{DynamicResource DataTemplate2}" ItemsSource="{Binding CurrentFeed.Articles}" SelectedItem="{Binding CurrentArticle}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" Margin="0,0,5,0" Style="{DynamicResource ListViewStyle1}" ItemContainerStyle="{DynamicResource ListViewItemStyle1}"/>

@@ -13,6 +13,10 @@ using System.Runtime.Serialization;
 
 namespace JustForFeed.ViewModel
 {
+    /// <summary>
+    /// Viewmodel基类
+    /// 仅因为mvvmlight的基类不支持序列化——导致无法序列化对象保存，故添加此类——内容基本与mvvmlight基类内容一致
+    /// </summary>
     [Serializable]
     [DataContract]
     public class BaseViewModel : INotifyPropertyChanged

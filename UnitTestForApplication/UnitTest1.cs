@@ -17,18 +17,16 @@ namespace UnitTestForApplication
             feed.Link = new Uri("http://www.baidu.com");
             feed.Name = "baidu";
 
-            feed.SaveFavoritesAsync();
+            var withoutwait = feed.SaveFavoritesAsync();
         }
 
         [TestMethod]
-        public void TestMethod4()
+        public async void TestMethod4()
         {
 
-            FeedViewModel feed = FeedDataHandler.GetFavoritesAsync();
+            FeedViewModel feed = await FeedDataHandler.GetFavoritesAsync();
 
             Console.WriteLine(feed.Link.ToString());
-
-
         }
 
         [TestMethod]
@@ -41,7 +39,7 @@ namespace UnitTestForApplication
 
             List<FeedViewModel> feeds = new List<FeedViewModel>();
             feeds.Add(feed);
-            feeds.SaveAsync();
+            var withoutwait = feeds.SaveAsync();
 
             feed.OfflineFeed();
 

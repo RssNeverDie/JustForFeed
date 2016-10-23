@@ -20,6 +20,7 @@ namespace JustForFeed.View
 {
     /// <summary>
     /// PageArticle.xaml 的交互逻辑
+    /// 具体文章页面
     /// </summary>
     public partial class PageArticle : Page
     {
@@ -28,17 +29,26 @@ namespace JustForFeed.View
             get { return this.DataContext as ArticleViewModel; }
             set { this.DataContext = value; }
         }
+
         public PageArticle()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 外部传递viewmodel后设置页面
+        /// </summary>
+        /// <param name="viewmodel"></param>
         public void SetViewModel(ArticleViewModel viewmodel)
         {
             ViewModel = viewmodel;
             this.webbr.NavigateToString(ConvertExtendedASCII(ViewModel.Summary));
         }
-
+        /// <summary>
+        /// 处理中文页面乱码
+        /// </summary>
+        /// <param name="HTML"></param>
+        /// <returns></returns>
         private static string ConvertExtendedASCII(string HTML)
         {
             string retVal = "";
@@ -60,7 +70,7 @@ namespace JustForFeed.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void btnOriginalArticle_Click(object sender, RoutedEventArgs e)
         {
 
             HttpClient a = new HttpClient();
@@ -74,7 +84,12 @@ namespace JustForFeed.View
             //this.NavigationService.Navigate(ViewModel.Link);
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 外部浏览器打开
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnOpenArticleWithOutsideWebBrowser_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(ViewModel.Link.ToString());
         }

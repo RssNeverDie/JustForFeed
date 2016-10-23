@@ -14,8 +14,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width" VerticalAlignment="Center">
-            <Button x:Name="button" Content="查看原文" Width="75" Click="button_Click" d:LayoutOverrides="TopPosition, BottomPosition" Margin="10,0,0,0"/>
-            <Button x:Name="button1" Content="浏览器中打开" HorizontalAlignment="Left" Width="75" Click="button1_Click" Margin="10,0,0,0"/>
+            <Button x:Name="button" Content="查看原文" Width="75" Click="btnOriginalArticle_Click" d:LayoutOverrides="TopPosition, BottomPosition" Margin="10,0,0,0"/>
+            <Button x:Name="button1" Content="浏览器中打开" HorizontalAlignment="Left" Width="75" Click="btnOpenArticleWithOutsideWebBrowser_Click" Margin="10,0,0,0"/>
 
         </StackPanel>
 

@@ -13,10 +13,15 @@ namespace JustForFeed.Model
     [DataContract]
     public class FeedSketch
     {
-
+        /// <summary>
+        /// 订阅链接
+        /// </summary>
         [DataMember(Order = 1)]
         public string Link { get; set; }
 
+        /// <summary>
+        /// 订阅名称
+        /// </summary>
         [DataMember(Order = 2)]
         public string Name  { get; set; }
     }

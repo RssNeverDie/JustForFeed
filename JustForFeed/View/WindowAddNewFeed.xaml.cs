@@ -18,21 +18,16 @@ namespace JustForFeed.View
 {
     /// <summary>
     /// WindowAddNewFeed.xaml 的交互逻辑
+    /// 添加新订阅源界面
     /// </summary>
     public partial class WindowAddNewFeed : Window
     {
-
-        //AddNewFeedViewModel ViewModel
-        //{
-        //    get { return this.DataContext as AddNewFeedViewModel; }
-        //    set { this.DataContext = value; }
-        //}
 
         public WindowAddNewFeed()
         {
             InitializeComponent();
             this.btn_cancle.Click += Btn_cancle_Click;
-            // ViewModel = new AddNewFeedViewModel();
+
             this.Loaded += WindowAddNewFeed_Loaded;
             this.Unloaded += WindowAddNewFeed_Unloaded;
 

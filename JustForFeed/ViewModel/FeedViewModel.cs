@@ -9,10 +9,16 @@ using System.Runtime.Serialization;
 
 namespace JustForFeed.ViewModel
 {
+    /// <summary>
+    /// 订阅源类
+    /// </summary>
     [DataContract]
     public class FeedViewModel : BaseViewModel
     {
         private Uri link;
+        /// <summary>
+        /// 订阅源地址
+        /// </summary>
         [DataMember]
         public Uri Link
         {
@@ -56,6 +62,9 @@ namespace JustForFeed.ViewModel
         }
 
         private string name = string.Empty;
+        /// <summary>
+        /// 订阅源名称
+        /// </summary>
         [DataMember]
         public string Name
         {
@@ -67,9 +76,16 @@ namespace JustForFeed.ViewModel
             }
         }
 
+        /// <summary>
+        /// 文章列表
+        /// </summary>
         [DataMember]
         public ObservableCollection<ArticleViewModel> Articles { get; set; } = new ObservableCollection<ArticleViewModel>();
 
+        /// <summary>
+        /// 订阅源描述
+        /// </summary>
+        public string Description { get; set; }
 
     }
 }
