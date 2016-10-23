@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace JustForFeed.ViewModel
 {
     [DataContract]
-    public class FeedViewModel : ViewModelBase
+    public class FeedViewModel : BaseViewModel
     {
         private Uri link;
         [DataMember]
@@ -69,5 +69,7 @@ namespace JustForFeed.ViewModel
 
         [DataMember]
         public ObservableCollection<ArticleViewModel> Articles { get; set; } = new ObservableCollection<ArticleViewModel>();
+
+
     }
 }

@@ -13,9 +13,10 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplate2">
-            <Grid>
+            <DockPanel HorizontalAlignment="Stretch">
                 <TextBlock Text="{Binding Title,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-            </Grid>
+                <CheckBox Command="{Binding StarArticleCommand,UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsStarred,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DockPanel.Dock="Right"></CheckBox>
+            </DockPanel>
         </DataTemplate>
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
             <VirtualizingStackPanel IsItemsHost="True"/>

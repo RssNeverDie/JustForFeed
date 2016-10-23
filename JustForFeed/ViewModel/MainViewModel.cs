@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using JustForFeed.Helper;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Windows.Input;
 using System.Xml;
@@ -25,6 +26,8 @@ namespace JustForFeed.ViewModel
     public class MainViewModel : ViewModelBase
     {
 
+        public FeedViewModel FavoritesFeed { get; set; } = new FeedViewModel();
+
         public ObservableCollection<FeedViewModel> NewFeeds { get; } = new ObservableCollection<FeedViewModel>();
 
         private FeedViewModel currentFeed = new FeedViewModel();
@@ -37,6 +40,7 @@ namespace JustForFeed.ViewModel
                 RaisePropertyChanged(() => CurrentFeed);
             }
         }
+
 
         private ArticleViewModel currentarticle;
 
@@ -91,8 +95,20 @@ namespace JustForFeed.ViewModel
 
         void Init()
         {
+            FavoritesFeed = FeedDataHandler.GetFavoritesAsync() ?? FavoritesFeed;
+            if (string.IsNullOrWhiteSpace(FavoritesFeed.Name)) FavoritesFeed.Name = " ’≤ÿ";
+            if (FavoritesFeed.Articles == null) FavoritesFeed.Articles = new ObservableCollection<ArticleViewModel>();
+
             NewFeeds.Clear();
             FeedDataHandler.GetFeedsAsync().ForEach(feed => NewFeeds.Add(feed));
+
+            FavoritesFeed.Articles.CollectionChanged += Articles_CollectionChanged;
+
+        }
+
+        private void Articles_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            FavoritesFeed.SaveFavoritesAsync();
         }
 
         /// <summary>
@@ -193,6 +209,21 @@ namespace JustForFeed.ViewModel
             catch (Exception ex)
             {
                 return;
+            }
+        }
+
+
+        /// <summary>
+        /// Updates the FavoritesFeed when an article is starred or unstarred. 
+        /// </summary>
+        public void SyncFavoritesFeed(ArticleViewModel article)
+        {
+            if (article.IsStarred) FavoritesFeed.Articles.Insert(0, article);
+            else
+            {
+                FavoritesFeed.Articles.Remove(article);
+                //var ar = FavoritesFeed.Articles.FirstOrDefault(a => a.Equals(article));
+                //if (ar != null) { FavoritesFeed.Articles.Remove(ar); }
             }
         }
 

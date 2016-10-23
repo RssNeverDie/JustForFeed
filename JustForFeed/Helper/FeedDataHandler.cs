@@ -12,6 +12,7 @@ using System.Threading;
 using System.Xml;
 using System.Net.Http;
 using System.ServiceModel.Syndication;
+using Microsoft.Practices.ServiceLocation;
 
 namespace JustForFeed.Helper
 {
@@ -85,14 +86,19 @@ namespace JustForFeed.Helper
         /// </summary>
         public static FeedViewModel GetFavoritesAsync()
         {
-
-            using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "favorites.xml"), FileMode.Open))
+            try
             {
+                using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "favorites.xml"), FileMode.OpenOrCreate))
+                {
 
-                DataContractSerializer dcs = new DataContractSerializer(typeof(FeedViewModel));
-                return (FeedViewModel)dcs.ReadObject(fs);
-                //dcs.WriteObject(fs, favorites);
-
+                    DataContractSerializer dcs = new DataContractSerializer(typeof(FeedViewModel));
+                    return (FeedViewModel)dcs.ReadObject(fs);
+                    //dcs.WriteObject(fs, favorites);
+                }
+            }
+            catch(Exception ex)
+            {
+                return null;
             }
 
             //var favoritesFile = await ApplicationData.Current.LocalFolder
@@ -229,11 +235,11 @@ namespace JustForFeed.Helper
                 })
                 .ToList().ForEach(article =>
                 {
-                    feedViewModel.Articles.Add(article);
-                    //var favorites = AppShell.Current.ViewModel.FavoritesFeed;
-                    //var existingCopy = favorites.Articles.FirstOrDefault(a => a.Equals(article));
-                    //article = existingCopy ?? article;
-                    //if (!feedViewModel.Articles.Contains(article)) feedViewModel.Articles.Add(article);
+                    //feedViewModel.Articles.Add(article);
+                    var favorites =  ServiceLocator.Current.GetInstance<MainViewModel>().FavoritesFeed;
+                    var existingCopy = favorites.Articles.FirstOrDefault(a => a.Equals(article));
+                    article = existingCopy ?? article;
+                    if (!feedViewModel.Articles.Contains(article)) feedViewModel.Articles.Add(article);
                 });
                 //feedViewModel.IsInError = false;
                 //feedViewModel.ErrorMessage = null;
