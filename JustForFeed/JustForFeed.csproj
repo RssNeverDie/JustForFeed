@@ -67,6 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -96,7 +97,7 @@
     <Compile Include="Helper\FeedDataHandler.cs" />
     <Compile Include="Model\FeedSketch.cs" />
     <Compile Include="RunTime.cs" />
-    <Compile Include="UserConfig.cs" />
+    <Compile Include="Helper\UserConfigHandler.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\FeedViewModel.cs" />

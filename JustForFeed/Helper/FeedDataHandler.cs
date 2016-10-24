@@ -89,6 +89,10 @@ namespace JustForFeed.Helper
         public static List<FeedViewModel> GetFeedsAsync()
         {
             var feeds = new List<FeedViewModel>();
+            if (!File.Exists(Path.Combine(RunTime.DataPath, "feeds.xml")))
+            {
+                return new List<FeedViewModel>();
+            }
             using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "feeds.xml"), FileMode.Open))
             {
                 DataContractSerializer dcs = new DataContractSerializer(typeof(IEnumerable<FeedSketch>));
@@ -117,9 +121,7 @@ namespace JustForFeed.Helper
                 }
                 return feeds;
 
-
             }
-
         }
 
         /// <summary>
@@ -213,6 +215,6 @@ namespace JustForFeed.Helper
             a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
             return a.GetStreamAsync(url).Result;
         }
-        
+
     }
 }

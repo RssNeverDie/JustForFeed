@@ -9,9 +9,19 @@ namespace JustForFeed
 {
     public class RunTime
     {
-        public static string DataPath { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
+        public static string DataPath
+        {
+            get
+            {
+                return UserConfigHandler.Current.DataFolderPath;
+            }
+            set
+            {
+                UserConfigHandler.Current.DataFolderPath = value;
+            }
+        }
 
-        public static string OfflineDetailPath { get; set; } = Path.Combine(DataPath, "Data");
+        public static string OfflineDetailPath { get { return Path.Combine(DataPath, "FeedsData"); } }
 
         static RunTime()
         {
