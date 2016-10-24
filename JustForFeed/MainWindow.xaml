@@ -8,7 +8,12 @@
         Title="只为订阅" Height="768" Width="1024">
     <Window.Resources>
         <DataTemplate x:Key="DataTemplate1">
-            <Grid>
+            <Grid Background="#00000000" HorizontalAlignment="Stretch" >
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="离线" Command="{Binding Main.OfflineCommand, Source={StaticResource Locator}}"/>
+                    </ContextMenu>
+                </Grid.ContextMenu>
                 <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
             </Grid>
         </DataTemplate>
@@ -77,7 +82,9 @@
         </Style>
         <Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-
+        </Style>
+        <Style x:Key="ListViewItemStyle2" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         </Style>
     </Window.Resources>
     <Window.DataContext>
@@ -102,7 +109,9 @@
                 <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" Width="75" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,0,0,5" />
                 <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" Margin="0,5,0,0" Width="75"/>
             </StackPanel>
-            <ListView Grid.Row="1" ItemsSource="{Binding FeedsWithFavorites}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" />
+            <ListView Grid.Row="1" ItemsSource="{Binding FeedsWithFavorites}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate1}" ItemContainerStyle="{DynamicResource ListViewItemStyle2}">
+
+            </ListView>
         </Grid>
         <GridSplitter x:Name="gridSplitter" Width="5"/>
         <ListView x:Name="listarticle" Grid.Column="1"  ItemTemplate="{DynamicResource DataTemplate2}" ItemsSource="{Binding CurrentFeed.Articles}" SelectedItem="{Binding CurrentArticle}" ItemsPanel="{DynamicResource ItemsPanelTemplate1}" Margin="0,0,5,0" Style="{DynamicResource ListViewStyle1}" ItemContainerStyle="{DynamicResource ListViewItemStyle1}"/>

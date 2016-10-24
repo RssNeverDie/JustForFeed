@@ -53,7 +53,7 @@ namespace JustForFeed.Helper
         /// <param name="feed"></param>
         public static async Task OfflineFeed(this FeedViewModel feed)
         {
-            using (Stream fs = new FileStream(Path.Combine(RunTime.DataPath, "Data", feed.Name + ".xml"), FileMode.Create, FileAccess.Write, FileShare.None))
+            using (Stream fs = new FileStream(Path.Combine(RunTime.OfflineDetailPath, feed.Name + ".xml"), FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 DataContractSerializer dcs = new DataContractSerializer(typeof(FeedViewModel));
                 await Task.Run(() => dcs.WriteObject(fs, feed));
@@ -104,9 +104,9 @@ namespace JustForFeed.Helper
                     {
                         continue;
                     }
-                    if (item.Name != null && File.Exists(Path.Combine(RunTime.DataPath, "Data", item.Name + ".xml")))
+                    if (item.Name != null && File.Exists(Path.Combine(RunTime.OfflineDetailPath, item.Name + ".xml")))
                     {
-                        using (Stream fs1 = new FileStream(Path.Combine(RunTime.DataPath, "Data", item.Name + ".xml"), FileMode.Open))
+                        using (Stream fs1 = new FileStream(Path.Combine(RunTime.OfflineDetailPath, item.Name + ".xml"), FileMode.Open))
                         {
                             DataContractSerializer dcs1 = new DataContractSerializer(typeof(FeedViewModel));
                             var tempa = (FeedViewModel)dcs1.ReadObject(fs1);

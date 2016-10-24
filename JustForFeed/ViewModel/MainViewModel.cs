@@ -96,6 +96,11 @@ namespace JustForFeed.ViewModel
         public ICommand RefreshFeedNameCommand { get; set; }
 
         /// <summary>
+        /// ÀëÏß²Ù×÷
+        /// </summary>
+        public ICommand OfflineCommand { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
@@ -112,6 +117,7 @@ namespace JustForFeed.ViewModel
                 ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
                 RemoveFeedCommand = new RelayCommand(RemoveFeed, CanRemoveFeed);
                 RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
+                OfflineCommand = new RelayCommand(Offline);
 
                 Init();
             }
@@ -286,5 +292,12 @@ namespace JustForFeed.ViewModel
             }
         }
 
+        /// <summary>
+        /// feedÀëÏß
+        /// </summary>
+        async void Offline()
+        {
+            await CurrentFeed.OfflineFeed();
+        }
     }
 }
