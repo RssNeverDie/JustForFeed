@@ -28,7 +28,7 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="textBlock1" TextWrapping="NoWrap" Text="{Binding Author,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" d:LayoutOverrides="Width, Height" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <CheckBox Grid.Column="1" Command="{Binding StarArticleCommand, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsStarred, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" />
+                <CheckBox Grid.Column="1" Command="{Binding StarArticleCommand, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsStarred, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Style="{DynamicResource CheckBox_Favorite}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <StackPanel Orientation="Vertical" Grid.RowSpan="1" d:LayoutOverrides="Width" Grid.Row="1">
                     <TextBlock Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" TextWrapping="NoWrap" Margin="5,0,0,0" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" VerticalAlignment="Top" />
                     <TextBlock x:Name="textBlock" TextWrapping="NoWrap" Text="{Binding Link,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Top" Margin="20,0,0,0"/>
