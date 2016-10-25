@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Practices.ServiceLocation;
 
 namespace JustForFeed.ViewModel
 {
@@ -86,6 +89,33 @@ namespace JustForFeed.ViewModel
         /// 订阅源描述
         /// </summary>
         public string Description { get; set; }
+
+
+        private ICommand sta;
+        /// <summary>
+        /// 由于反序列时，未正确执行构造函数，无法在构造里初始化，故利用属性初始化
+        /// 离线存储命令
+        /// </summary>
+        public ICommand OfflineCommand
+        {
+            get
+            {
+                if (sta == null)
+                {
+                    sta = new RelayCommand(Offline);
+                }
+                return sta;
+            }
+        }
+
+
+        /// <summary>
+        /// 离线feed
+        /// </summary>
+        void Offline()
+        {
+            ServiceLocator.Current.GetInstance<MainViewModel>().Offline(this);
+        }
 
     }
 }
