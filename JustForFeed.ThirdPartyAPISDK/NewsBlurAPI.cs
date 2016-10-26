@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
+using JustForFeed.ThirdPartyAPISDK.NewsBlurModel;
+using System.Threading.Tasks;
 
 namespace JustForFeed.ThirdPartyAPISDK
 {
@@ -23,17 +26,28 @@ namespace JustForFeed.ThirdPartyAPISDK
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="pwd">密码</param>
-        public static void Login(string username, string pwd = null)
+        public static async Task Login(string username, string pwd = null)
         {
-            Dictionary<string, string> dic_content = new Dictionary<string, string>();
-            dic_content.Add("username", username);
-            if (!string.IsNullOrEmpty(pwd))
+            try
             {
-                dic_content.Add("password", pwd);
+                Dictionary<string, string> dic_content = new Dictionary<string, string>();
+                dic_content.Add("username", username);
+                if (!string.IsNullOrEmpty(pwd))
+                {
+                    dic_content.Add("password", pwd);
+                }
+                FormUrlEncodedContent content = new FormUrlEncodedContent(dic_content);
+                var response = await client.PostAsync(host + "/api/login", content);
+
+                var stringresponse = await response.Content.ReadAsStringAsync();
+
+                var loginobj = JsonConvert.DeserializeObject<loginresponse>(stringresponse);
+
+                //return loginobj.authenticated;
             }
-            FormUrlEncodedContent content = new FormUrlEncodedContent(dic_content);
-            var q = client.PostAsync(host + "/api/login", content).Result;
-            
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
