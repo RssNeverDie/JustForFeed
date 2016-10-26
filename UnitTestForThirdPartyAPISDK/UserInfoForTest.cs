@@ -11,7 +11,7 @@ namespace UnitTestForThirdPartyAPISDK
     /// </summary>
     class UserInfoForTest
     {
-        public const string username  = "";
+        public const string username  = "ss";
         public const string password  = "";
     }
 }
