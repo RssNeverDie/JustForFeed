@@ -18,6 +18,7 @@ namespace JustForFeed.ThirdPartyAPISDK
         }
 
         /// <summary>
+        /// 登录
         /// POST /api/login
         /// </summary>
         /// <param name="username">用户名</param>

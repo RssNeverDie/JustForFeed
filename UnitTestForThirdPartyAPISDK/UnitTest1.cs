@@ -10,7 +10,7 @@ namespace UnitTestForThirdPartyAPISDK
         [TestMethod]
         public void TestMethod1()
         {
-            NewsBlurAPI.Login("","");
+            NewsBlurAPI.Login(UserInfoForTest.username, UserInfoForTest.password);
         }
     }
 }
