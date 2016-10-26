@@ -21,6 +21,14 @@ namespace JustForFeed.Helper
     /// </summary>
     public static class FeedDataHandler
     {
+        static HttpClient client = new HttpClient();
+
+        static FeedDataHandler()
+        {
+            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
+            //useragent格式：“产品名称/产品版本（系统信息等）”
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("JustForFeed/1.0");
+        }
 
         /// <summary>
         /// 收藏文章保存到本地
@@ -190,7 +198,6 @@ namespace JustForFeed.Helper
             }
         }
 
-        static HttpClient a = new HttpClient();
         /// <summary>
         /// 获取 rss内容——返回数据流
         /// </summary>
@@ -198,9 +205,7 @@ namespace JustForFeed.Helper
         /// <returns></returns>
         public static async Task<Stream> GetRSSStreamInfo(Uri url)
         {
-            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
-            a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
-            return await a.GetStreamAsync(url);
+            return await client.GetStreamAsync(url);
         }
 
         /// <summary>
@@ -211,9 +216,7 @@ namespace JustForFeed.Helper
         /// <returns></returns>
         public static Stream GetRSSStreamInfo1(Uri url)
         {
-            //经测试——部分网站要求一定要有useragent才有返回数据——如博客园的rss
-            a.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko");
-            return a.GetStreamAsync(url).Result;
+            return client.GetStreamAsync(url).Result;
         }
 
     }
