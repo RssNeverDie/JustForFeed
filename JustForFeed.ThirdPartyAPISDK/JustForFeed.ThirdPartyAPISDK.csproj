@@ -34,7 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="NewsBlurAPI.cs" />
+    <Compile Include="AboutJustForFeed.cs" />
+    <Compile Include="Core\AuthenticationBase.cs" />
+    <Compile Include="NewsBlurModel\feedsresponse.cs" />
+    <Compile Include="Util\NewsBlurAPI.cs" />
     <Compile Include="NewsBlurModel\errorresponse.cs" />
     <Compile Include="NewsBlurModel\loginresponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

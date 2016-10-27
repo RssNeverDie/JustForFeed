@@ -14,6 +14,7 @@ namespace UnitTestForThirdPartyAPISDK
         public  void TestMethod1()
         {
             NewsBlurAPI.Login(UserInfoForTest.username, UserInfoForTest.password).Wait();
+            NewsBlurAPI.GetUserFeedsList();
         }
     }
 }
