@@ -11,10 +11,14 @@ namespace UnitTestForThirdPartyAPISDK
     public class UnitTest1
     {
         [TestMethod]
-        public  void TestMethod1()
+        public void TestMethod1()
         {
             NewsBlurAPI.Login(UserInfoForTest.username, UserInfoForTest.password).Wait();
-            NewsBlurAPI.GetUserFeedsList();
+            var withoutwait = NewsBlurAPI.GetUserFeedsList(include_favicons: false);
+            foreach (var item in withoutwait.Result)
+            {
+                Console.WriteLine(item.Id + ";" + item.FeedName + ";" + item.FeedUrl);
+            }
         }
     }
 }

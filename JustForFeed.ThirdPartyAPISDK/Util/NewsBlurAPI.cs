@@ -70,7 +70,7 @@ namespace JustForFeed.ThirdPartyAPISDK
         /// <param name="include_favicons"></param>
         /// <param name="flat"></param>
         /// <param name="update_counts"></param>
-        public static void GetUserFeedsList(bool include_favicons = false, bool flat = false, bool update_counts = false)
+        public static async Task<List<FeedInfoBase>> GetUserFeedsList(bool include_favicons = false, bool flat = false, bool update_counts = false)
         {
             string getparam = string.Empty;
             getparam += (include_favicons ? "?include_favicons=true" : "");
@@ -78,8 +78,14 @@ namespace JustForFeed.ThirdPartyAPISDK
             getparam += (update_counts ? (string.IsNullOrEmpty(getparam) ? "?" : "&") + "update_counts=true" : "");
 
             string tempurl = host + "/reader/feeds";
-            var a = client.GetStringAsync(tempurl + getparam).Result;
-            var aaaa = JsonConvert.DeserializeObject<feedsresponse>(a);
+            var responsestr =await client.GetStringAsync(tempurl + getparam);
+            var responseobj = JsonConvert.DeserializeObject<feedsresponse>(responsestr);
+            var feedlist = from c in responseobj.feeds select new FeedInfoBase {
+                Id = c.Key,
+                FeedUrl=c.Value.feed_address.ToString(),
+                FeedName=c.Value.feed_title
+            };
+            return feedlist.ToList();
         }
 
 

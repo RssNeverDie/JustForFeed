@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="AboutJustForFeed.cs" />
     <Compile Include="Core\AuthenticationBase.cs" />
+    <Compile Include="Core\FeedInfoBase.cs" />
+    <Compile Include="NewsBlurModel\feedinforesponse.cs" />
     <Compile Include="NewsBlurModel\feedsresponse.cs" />
     <Compile Include="Util\NewsBlurAPI.cs" />
     <Compile Include="NewsBlurModel\errorresponse.cs" />
