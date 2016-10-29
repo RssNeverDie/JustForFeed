@@ -170,6 +170,9 @@ namespace JustForFeed.Helper
                 // feedViewModel.LastSyncDateTime = DateTime.Now;
                 feedViewModel.Name = String.IsNullOrEmpty(feedViewModel.Name) ? feed.Title.Text : feedViewModel.Name;
                 feedViewModel.Description = feed.Description?.Text ?? feed.Title.Text;
+                var qq = feedViewModel.Articles == null || feedViewModel.Articles.Count <= 0
+                    ? new DateTimeOffset(new DateTime(1900, 1, 1))
+                    : feedViewModel.Articles.Max(p => p.PublishedDate);
 
                 feed.Items.Select(item => new ArticleViewModel
                 {
@@ -184,7 +187,7 @@ namespace JustForFeed.Helper
                     var favorites = ServiceLocator.Current.GetInstance<MainViewModel>().FavoritesFeed;
                     var existingCopy = favorites.Articles.FirstOrDefault(a => a.Equals(article));
                     article = existingCopy ?? article;
-                    if (!feedViewModel.Articles.Contains(article))
+                    if (!feedViewModel.Articles.Contains(article) && article.PublishedDate > qq)
                         feedViewModel.Articles.Add(article);
                 });
                 return true;

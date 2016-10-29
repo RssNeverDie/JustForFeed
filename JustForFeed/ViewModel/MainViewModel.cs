@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 
@@ -75,7 +76,7 @@ namespace JustForFeed.ViewModel
                 RaisePropertyChanged(() => CurrentArticle);
             }
         }
-
+          
         /// <summary>
         /// 添加订阅命令
         /// </summary>
@@ -89,6 +90,11 @@ namespace JustForFeed.ViewModel
         /// 移除订阅源命令
         /// </summary>
         public RelayCommand RemoveFeedCommand { get; set; }
+
+        /// <summary>
+        /// 刷新订阅源信息列表
+        /// </summary>
+        public RelayCommand RefreshFeedStoriesCommand { get; set; }
 
         /// <summary>
         /// 更新订阅源名称
@@ -111,6 +117,7 @@ namespace JustForFeed.ViewModel
                 AddNewFeedCommand = new RelayCommand(AddNewFeed);
                 ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
                 RemoveFeedCommand = new RelayCommand(RemoveFeed, CanRemoveFeed);
+                RefreshFeedStoriesCommand = new RelayCommand(RefreshFeedStories);
                 RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
 
                 Init();
@@ -209,6 +216,20 @@ namespace JustForFeed.ViewModel
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// 更新订阅源信息列表
+        /// </summary>
+        async void RefreshFeedStories()
+        {
+            await CurrentFeed.RefreshAsync();
+            RaisePropertyChanged(() => CurrentFeed);
+            RaisePropertyChanged(() => CurrentFeed.Articles);
+            if (CurrentFeed.NeedOffline)
+            {
+                CurrentFeed.OfflineCommand.Execute(null);
+            }
         }
 
         /// <summary>
