@@ -163,8 +163,46 @@ term|**可选** 用于搜索订阅源地址、链接和标题的短语/词语||`
 
 # 智能分类
 
+## GET /classifier/:id
+
+* 获取用户网站的智能分类
+* 仅仅含有用户自己的分类。要获取流行分类，使用 `/reader/feeds_trainer` 。
+
+### 提示
+
+* 所有分类数据在获取订阅源`/reader/feed/:id`时，都一起下发
+* 在获取订阅源信息后，没有必要再调用此接口。除非你还没有调用过订阅源信息获取。
+
+## POST /classifier/save
+
+* 为订阅保存智能分类（标签，标题，作者和订阅）
+参数|描述|默认值|示例
+----|---|----|----
+feed_id|**必要** 订阅信息ID||`42`
+like\_[TYPE]|**可选** 类型内容相似匹配 <- [tag, author, title, feed]||`like_author=Samuel Clay`
+dislike\_[TYPE]|**可选** 类型内容不符合匹配 <- [tag, author, title, feed]||`dislike_title=New York Yankees`
+remove\_like\_[TYPE]|**可选** 清除分类比较条件||`remove_like_author=Samuel Clay`
+remove\_dislike\_[TYPE]|**可选** 功能类似 `remove_like_[TYPE]`||`remove_dislike_title=New York Yankees`
+
+### 提示
+
+* 此接口不同于其他接口。它需要大量的参数键值
+* 你可以发送任意键值列表。如： `like_tag[]=tech&like_tag[]=mobile`
 
 # 导入导出
+
+## GET /import/opml_export
+
+* 下载含有订阅源和文件夹信息的OPML备份文件
+* 文件格式xml，内容包括订阅信息的文件夹及订阅源信息。多用于导入到另一个RSS阅读器。
+
+## POST /import/opml_upload
+
+* 上传OPML文件
+
+参数|描述|默认值|示例
+----|----|----|----
+file|**必要** xml格式的OPML文件||	
 
 
 # API 准则和服务条款
