@@ -1,3 +1,6 @@
+[000]: http://www.shisujie.com
+
+> 本文托管地址：<http://git.oschina.net/huaxia283611/JustForFeed/tree/master/docs/ThirdPartyAPI.md>
 
 # RSS阅读器开发信息整合
 
@@ -40,7 +43,7 @@
 > 另注：此Atom非Github的Atom，未避免更多的误解，在提及订阅的时候，直接用RSS，而不提及Atom
 
 * 概念：没有概念，就是特殊xml文档格式的定义，其他都是扯
-* 格式：见：<http://git.oschina.net/huaxia283611/JustForFeed> 中docs文件夹下的RSSAndAtomFormat.md文档
+* 格式：见：<http://git.oschina.net/huaxia283611/JustForFeed> 中docs文件夹下的[RSSAndAtomFormat.md](http://git.oschina.net/huaxia283611/JustForFeed/tree/master/docs/RSSAndAtomFormat.md)文档
 
 ## 关于新闻组
 
@@ -55,3 +58,6 @@
 * 开发经验参考：
     * <http://tatmingstudio.blogspot.com/2007/11/aspnet-nntp-newsgroup-reader-sharpnext.html>
 
+
+***
+掘客：[奇葩史][000]
