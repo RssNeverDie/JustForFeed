@@ -13,28 +13,56 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustForFeed.ThirdPartyAPISD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestForThirdPartyAPISDK", "UnitTestForThirdPartyAPISDK\UnitTestForThirdPartyAPISDK.csproj", "{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SetupPackage", "SetupPackage", "{6CC8CC1A-310C-4367-A2F2-3F6B9CA6D981}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "JustForFeed.Setup", "JustForFeed.Setup\JustForFeed.Setup.wixproj", "{993CA68E-D913-43BF-85F4-57CE24045344}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Debug|x86.Build.0 = Debug|Any CPU
 		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{F692EE90-43C7-42D4-AFA2-C227B7BCDEEE}.Release|x86.Build.0 = Release|Any CPU
 		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Debug|x86.Build.0 = Debug|Any CPU
 		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Release|x86.ActiveCfg = Release|Any CPU
+		{59B1333B-89C7-47E0-ACA3-B51810F87410}.Release|x86.Build.0 = Release|Any CPU
 		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Debug|x86.Build.0 = Debug|Any CPU
 		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Release|x86.ActiveCfg = Release|Any CPU
+		{FD5D88A0-1D86-4ECF-9526-2D560661D428}.Release|x86.Build.0 = Release|Any CPU
 		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Debug|x86.Build.0 = Debug|Any CPU
 		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Release|x86.ActiveCfg = Release|Any CPU
+		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF}.Release|x86.Build.0 = Release|Any CPU
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Debug|x86.ActiveCfg = Debug|x86
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Debug|x86.Build.0 = Debug|x86
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Release|Any CPU.ActiveCfg = Release|x86
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Release|x86.ActiveCfg = Release|x86
+		{993CA68E-D913-43BF-85F4-57CE24045344}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +70,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{59B1333B-89C7-47E0-ACA3-B51810F87410} = {43B7797C-7FFF-4410-8D52-B1D1872662C1}
 		{D86F89C7-060F-4B19-9AA3-6D8CDB412DBF} = {43B7797C-7FFF-4410-8D52-B1D1872662C1}
+		{993CA68E-D913-43BF-85F4-57CE24045344} = {6CC8CC1A-310C-4367-A2F2-3F6B9CA6D981}
 	EndGlobalSection
 EndGlobal
