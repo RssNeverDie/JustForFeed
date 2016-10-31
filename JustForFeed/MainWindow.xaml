@@ -27,15 +27,13 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical" d:LayoutOverrides="Height" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="添加订阅源" Command="{Binding AddNewFeedCommand}" Width="75" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Margin="0,0,0,5" />
-                <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" Margin="0,5,0,5" Width="75"/>
-
-                <Button Content="更新订阅源" Command="{Binding RefreshFeedStoriesCommand}"/>
+                <Button x:Name="button" Content="移除订阅源" Command="{Binding RemoveFeedCommand}" Margin="0,5,0,0" Width="75"/>
             </StackPanel>
             <ListView Grid.Row="1" ItemsSource="{Binding FeedsWithFavorites}" SelectedItem="{Binding CurrentFeed}" ItemTemplate="{DynamicResource DataTemplate_FeedsList}" ItemContainerStyle="{DynamicResource ListViewItem_FeedsList}"/>
         </Grid>
         <GridSplitter x:Name="gridSplitter" Width="5"/>
         <ListView x:Name="listarticle" Grid.Column="1" SelectedItem="{Binding CurrentArticle}"  ItemTemplate="{DynamicResource DataTemplate_ArticlesList}" ItemsSource="{Binding CurrentFeed.ArticlesView}" ItemsPanel="{DynamicResource ItemsPanelTemplate_ArticlesList}" Margin="0,0,5,0" Style="{DynamicResource ListView_ArticlesList}" ItemContainerStyle="{DynamicResource ListViewItem_ArticlesList}">
-
+     
             <!--<CollectionViewSource Source="{Binding CurrentFeed.Articles}">
                 <CollectionViewSource.SortDescriptions>
                     <ComponentModel:SortDescription Direction="Ascending" PropertyName="PublishDate"/>

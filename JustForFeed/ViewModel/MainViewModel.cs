@@ -90,12 +90,7 @@ namespace JustForFeed.ViewModel
         /// 移除订阅源命令
         /// </summary>
         public RelayCommand RemoveFeedCommand { get; set; }
-
-        /// <summary>
-        /// 刷新订阅源信息列表
-        /// </summary>
-        public RelayCommand RefreshFeedStoriesCommand { get; set; }
-
+        
         /// <summary>
         /// 更新订阅源名称
         /// </summary>
@@ -117,7 +112,6 @@ namespace JustForFeed.ViewModel
                 AddNewFeedCommand = new RelayCommand(AddNewFeed);
                 ConfirmAddCommand = new RelayCommand(ConfirmAdd, IsFeedCanUse);
                 RemoveFeedCommand = new RelayCommand(RemoveFeed, CanRemoveFeed);
-                RefreshFeedStoriesCommand = new RelayCommand(RefreshFeedStories);
                 RefreshFeedNameCommand = new RelayCommand(RefreshFeedName);
 
                 Init();
@@ -217,21 +211,7 @@ namespace JustForFeed.ViewModel
             }
             return true;
         }
-
-        /// <summary>
-        /// 更新订阅源信息列表
-        /// </summary>
-        async void RefreshFeedStories()
-        {
-            await CurrentFeed.RefreshAsync();
-            RaisePropertyChanged(() => CurrentFeed);
-            RaisePropertyChanged(() => CurrentFeed.Articles);
-            if (CurrentFeed.NeedOffline)
-            {
-                CurrentFeed.OfflineCommand.Execute(null);
-            }
-        }
-
+             
         /// <summary>
         /// 验证订阅源可用性_并更新名称
         /// </summary>

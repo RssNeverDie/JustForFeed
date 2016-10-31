@@ -7,12 +7,15 @@
 
     <DataTemplate x:Key="DataTemplate_FeedsList">
         <Grid Background="#00000000" HorizontalAlignment="Stretch" >
-            <Grid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="离线" Command="{Binding OfflineCommand}"/>
-                </ContextMenu>
-            </Grid.ContextMenu>
-            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <Button x:Name="button" Command="{Binding RefreshArticleCommand}" Content="更新" HorizontalAlignment="Stretch" Width="Auto" d:LayoutOverrides="Height" Grid.Column="1"/>
+                <Button x:Name="button1" Command="{Binding OfflineCommand}" Content="离线"/>
+            </StackPanel>
         </Grid>
     </DataTemplate>
     <Style x:Key="ListView_ArticlesList" TargetType="{x:Type ListView}">

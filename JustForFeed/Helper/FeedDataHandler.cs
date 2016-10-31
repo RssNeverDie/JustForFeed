@@ -137,7 +137,7 @@ namespace JustForFeed.Helper
         /// </summary>
         public static async Task RefreshAsync(this FeedViewModel feedViewModel, CancellationToken? cancellationToken = null)
         {
-            if (feedViewModel.Link.Host == "localhost" || (feedViewModel.Link.Scheme != "http" && feedViewModel.Link.Scheme != "https"))
+            if (feedViewModel.Link == null || feedViewModel.Link.Host == "localhost" || (feedViewModel.Link.Scheme != "http" && feedViewModel.Link.Scheme != "https"))
                 return;
 
             int numberOfAttempts = 5;

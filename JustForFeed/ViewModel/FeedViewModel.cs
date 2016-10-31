@@ -10,6 +10,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows.Data;
+using JustForFeed.Helper;
 
 namespace JustForFeed.ViewModel
 {
@@ -134,6 +135,23 @@ namespace JustForFeed.ViewModel
             }
         }
 
+        private RelayCommand refresharticlecommand;
+        /// <summary>
+        /// 更新订阅源文章
+        /// </summary>
+        public RelayCommand RefreshArticleCommand
+        {
+            get
+            {
+                if (refresharticlecommand == null)
+                {
+                    refresharticlecommand = new RelayCommand(RefreshArticles);
+                }
+                return refresharticlecommand;
+            }
+            set { refresharticlecommand = value; }
+        }
+
 
         /// <summary>
         /// 离线feed
@@ -144,5 +162,17 @@ namespace JustForFeed.ViewModel
             ServiceLocator.Current.GetInstance<MainViewModel>().Offline(this);
         }
 
+        /// <summary>
+        /// 更新文章信息
+        /// </summary>
+        async void RefreshArticles()
+        {
+            await this.RefreshAsync();
+            RaisePropertyChanged(() => Articles);
+            if (NeedOffline)
+            {
+                OfflineCommand.Execute(null);
+            }
+        }
     }
 }
