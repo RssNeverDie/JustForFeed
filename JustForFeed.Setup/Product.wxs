@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="JustForFeed.Setup" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="e1b720a8-5ca2-4ebb-b0b4-8062266b19d9">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*" Name="JustForFeed.Setup" Language="1033" Version="1.0.0.0" Manufacturer="JustForFeed" UpgradeCode="e1b720a8-5ca2-4ebb-b0b4-8062266b19d9">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
 
-		<Feature Id="ProductFeature" Title="JustForFeed.Setup" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+    <Feature Id="ProductFeature" Title="JustForFeed.Setup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="JustForFeed.Setup" />
-			</Directory>
-		</Directory>
-	</Fragment>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="JustForFeed.Setup" />
+      </Directory>
+    </Directory>
+  </Fragment>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
-	</Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <Component Id="ProductComponent" Guid="{BBF844FB-6136-42FF-B94C-461F59EFDEC7}">
+        <!-- TODO: Insert files, registry keys, and other resources here. -->
+        <File Source="$(var.JustForFeed.TargetPath)" />
+        <File Source="$(var.JustForFeed.TargetDir)/GalaSoft.MvvmLight.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/GalaSoft.MvvmLight.Extras.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/GalaSoft.MvvmLight.Platform.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/HtmlAgilityPack.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/Microsoft.Expression.Drawing.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/Microsoft.Practices.ServiceLocation.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/System.Net.Http.Formatting.dll" />
+        <File Source="$(var.JustForFeed.TargetDir)/System.Windows.Interactivity.dll" />
+
+        <File Source="$(var.JustForFeed.TargetDir)/JustForFeed.exe.config" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
 </Wix>
