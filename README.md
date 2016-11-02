@@ -8,4 +8,4 @@ WPF版RSS订阅阅读器
 
 ## 相关链接
 
-三方API整理链接：[ThirdpartyAPI](docs/ThirdpartyAPI.md)
+三方API整理链接：[ThirdpartyAPI](docs/ThirdPartyAPI.md)
