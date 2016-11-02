@@ -44,7 +44,7 @@ namespace JustForFeed.ThirdPartyAPISDK
 
                 var loginobj = JsonConvert.DeserializeObject<loginresponse>(stringresponse);
 
-                var auth = new AuthenticationBase { IsAuthSuccess = loginobj.authenticated, Message = loginobj.errors.ToString() };
+                var auth = new AuthenticationBase { IsAuthSuccess = loginobj.authenticated, Message = (loginobj.errors ?? (object)"").ToString() };
                 return auth;
             }
             catch (Exception ex)
@@ -78,16 +78,46 @@ namespace JustForFeed.ThirdPartyAPISDK
             getparam += (update_counts ? (string.IsNullOrEmpty(getparam) ? "?" : "&") + "update_counts=true" : "");
 
             string tempurl = host + "/reader/feeds";
-            var responsestr =await client.GetStringAsync(tempurl + getparam);
+            var responsestr = await client.GetStringAsync(tempurl + getparam);
             var responseobj = JsonConvert.DeserializeObject<feedsresponse>(responsestr);
-            var feedlist = from c in responseobj.feeds select new FeedInfoBase {
-                Id = c.Key,
-                FeedUrl=c.Value.feed_address.ToString(),
-                FeedName=c.Value.feed_title
-            };
+            var feedlist = from c in responseobj.feeds
+                           select new FeedInfoBase
+                           {
+                               Id = c.Key,
+                               FeedUrl = c.Value.feed_address.ToString(),
+                               FeedName = c.Value.feed_title
+                           };
             return feedlist.ToList();
         }
 
+        /// <summary>
+        /// 获取订阅源图标
+        /// </summary>
+        /// <param name="feedid"></param>
+        /// <returns></returns>
+        public static async Task<Dictionary<string, byte[]>> GetFeedIcon(params string[] feedid)
+        {
+            string getparam = string.Empty;
+            foreach (var item in feedid)
+            {
+                getparam += ("feed_ids=" + item);
+                getparam += "&";
+            }
+            if (!string.IsNullOrEmpty(getparam))
+            {
+                getparam = "?" + getparam.TrimEnd('&');
+            }
+
+            string tempurl = host + "/reader/favicons" + getparam;
+            var reponsestr = await client.GetStringAsync(tempurl);
+            var responseobj = JsonConvert.DeserializeObject<faviconsresponse>(reponsestr);
+            Dictionary<string, byte[]> tempicons = new Dictionary<string, byte[]>();
+            foreach (var item in feedid)
+            {
+                tempicons.Add(item, responseobj.GetIcon(item));
+            }
+            return tempicons;
+        }
 
     }
 }
