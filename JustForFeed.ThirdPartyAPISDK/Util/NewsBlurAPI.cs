@@ -19,6 +19,10 @@ namespace JustForFeed.ThirdPartyAPISDK
         static NewsBlurAPI()
         {
             client.DefaultRequestHeaders.UserAgent.ParseAdd(AboutJustForFeed.useragent);
+            client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip,deflate");
+            client.DefaultRequestHeaders.AcceptCharset.ParseAdd("UTF-8");
+            //client.DefaultRequestHeaders.AcceptCharset.ParseAdd("GB2312");
+            client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3");
         }
 
         /// <summary>
@@ -117,6 +121,25 @@ namespace JustForFeed.ThirdPartyAPISDK
                 tempicons.Add(item, responseobj.GetIcon(item));
             }
             return tempicons;
+        }
+
+        /// <summary>
+        /// 获取订阅源的原始页面
+        /// TODO 存在乱码问题
+        /// </summary>
+        /// <param name="feedid"></param>
+        /// <returns></returns>
+        public static async Task<string> GetOriginalPage(string feedid)
+        {
+            string tempurl = host + "/reader/page/" + feedid;
+
+            //var responsestream = await client.GetStreamAsync(tempurl);
+            //System.IO.StreamReader reader = new System.IO.StreamReader(responsestream, Encoding.GetEncoding("utf-8"));
+            //string aa = reader.ReadToEnd();
+            //string bb = System.Net.WebUtility.HtmlDecode(aa);
+
+            var reponsestr = await client.GetStringAsync(tempurl);
+            return reponsestr;
         }
 
     }

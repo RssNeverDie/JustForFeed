@@ -64,7 +64,7 @@
     <Compile Include="LoginNewsBlur.Designer.cs">
       <DependentUpon>LoginNewsBlur.cs</DependentUpon>
     </Compile>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestForNewsBlur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfoForTest.cs" />
   </ItemGroup>

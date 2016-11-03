@@ -8,7 +8,7 @@ namespace UnitTestForThirdPartyAPISDK
     /// 
     /// </summary>
     [TestClass]
-    public class UnitTest1
+    public class UnitTestForNewsBlur
     {
         [TestInitialize]
         public void Init()
@@ -38,6 +38,13 @@ namespace UnitTestForThirdPartyAPISDK
                 Console.WriteLine(item.Key + ":" + System.Text.Encoding.UTF8.GetString(item.Value ?? (new byte[0])));
             }
 
+        }
+
+        [TestMethod]
+        public void TestGetOriginalPage()
+        {
+            var withoutwair = NewsBlurAPI.GetOriginalPage("6461499");
+            Console.WriteLine(withoutwair.Result);
         }
     }
 }
