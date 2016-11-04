@@ -265,3 +265,51 @@
     }
 
 ***
+
+
+# 刷新未读计数【一分钟可使用一次】 /reader/refresh_feeds
+
+    {
+      "authenticated": true,
+      "interactions_count": 0,
+      "result": "ok",
+      "user_id": 430911,
+      "feeds": {
+        "23551": {
+          "ps": 0,
+          "feed_address": "http://feed.cnblogs.com/blog/sitehome/rss",
+          "ng": 0,
+          "exception_type": "page",
+          "exception_code": 301,
+          "nt": 200,
+          "id": 23551,
+          "has_exception": true
+        },
+        "6461499": {
+          "ps": 0,
+          "nt": 12,
+          "id": 6461499,
+          "ng": 0
+        },
+        "6464950": {
+          "ps": 0,
+          "feed_address": "http://feed.cnblogs.com/blog/u/137549/rss",
+          "ng": 0,
+          "exception_type": "page",
+          "exception_code": 301,
+          "nt": 7,
+          "id": 6464950,
+          "has_exception": true
+        }
+      },
+      "social_feeds": {
+        "social:430911": {
+          "ps": 0,
+          "nt": 0,
+          "id": "social:430911",
+          "ng": 0
+        }
+      }
+    }
+
+***

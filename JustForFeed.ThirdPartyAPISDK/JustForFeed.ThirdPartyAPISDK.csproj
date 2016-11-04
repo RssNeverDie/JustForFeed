@@ -40,6 +40,7 @@
     <Compile Include="NewsBlurModel\faviconsresponse.cs" />
     <Compile Include="NewsBlurModel\feedinforesponse.cs" />
     <Compile Include="NewsBlurModel\feedsresponse.cs" />
+    <Compile Include="NewsBlurModel\refreshfeedsresponse.cs" />
     <Compile Include="Util\NewsBlurAPI.cs" />
     <Compile Include="NewsBlurModel\errorresponse.cs" />
     <Compile Include="NewsBlurModel\loginresponse.cs" />

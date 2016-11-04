@@ -19,10 +19,10 @@ namespace JustForFeed.ThirdPartyAPISDK
         static NewsBlurAPI()
         {
             client.DefaultRequestHeaders.UserAgent.ParseAdd(AboutJustForFeed.useragent);
-            client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip,deflate");
-            client.DefaultRequestHeaders.AcceptCharset.ParseAdd("UTF-8");
+            //client.DefaultRequestHeaders.AcceptEncoding.ParseAdd("gzip,deflate");
+            //client.DefaultRequestHeaders.AcceptCharset.ParseAdd("UTF-8");
             //client.DefaultRequestHeaders.AcceptCharset.ParseAdd("GB2312");
-            client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3");
+            //client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3");
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace JustForFeed.ThirdPartyAPISDK
 
         /// <summary>
         /// 获取订阅源的原始页面
-        /// TODO 存在乱码问题
+        /// TODO 存在乱码问题，好像还有ssl问题
         /// </summary>
         /// <param name="feedid"></param>
         /// <returns></returns>
@@ -140,6 +140,23 @@ namespace JustForFeed.ThirdPartyAPISDK
 
             var reponsestr = await client.GetStringAsync(tempurl);
             return reponsestr;
+        }
+
+        /// <summary>
+        /// 获取刷新未读计数——每分钟至多一次
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<Dictionary<string, int>> GetRefreshFeeds()
+        {
+            string tempurl = host + "/reader/refresh_feeds";
+            var responsestr = await client.GetStringAsync(tempurl);
+            var responseobj = JsonConvert.DeserializeObject<refreshfeedsresponse>(responsestr);
+            Dictionary<string, int> feedcount = new Dictionary<string, int>();
+            foreach (var item in responseobj.feeds)
+            {
+                feedcount.Add(item.Key, item.Value.nt);
+            }
+            return feedcount;
         }
 
     }

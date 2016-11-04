@@ -20,7 +20,7 @@ namespace UnitTestForThirdPartyAPISDK
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void TestGetFeeds()
         {
             var withoutwait = NewsBlurAPI.GetUserFeedsList(include_favicons: false);
             foreach (var item in withoutwait.Result)
@@ -45,6 +45,19 @@ namespace UnitTestForThirdPartyAPISDK
         {
             var withoutwair = NewsBlurAPI.GetOriginalPage("6461499");
             Console.WriteLine(withoutwair.Result);
+        }
+
+        /// <summary>
+        /// 刷新未读计数
+        /// </summary>
+        [TestMethod]
+        public void TestRefreshFeeds()
+        {
+            var withoutwait = NewsBlurAPI.GetRefreshFeeds();
+            foreach (var item in withoutwait.Result)
+            {
+                Console.WriteLine(item.Key + ":" + item.Value);
+            }
         }
     }
 }
