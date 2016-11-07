@@ -59,5 +59,31 @@ namespace UnitTestForThirdPartyAPISDK
                 Console.WriteLine(item.Key + ":" + item.Value);
             }
         }
+
+        [TestMethod]
+        public void TestGetFeedsTrainer()
+        {
+            var withoutwait = NewsBlurAPI.GetFeedsTrainer();
+            foreach (var item in withoutwait.Result)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        [TestMethod]
+        public void TestGetStatistics()
+        {
+            NewsBlurAPI.GetStatisticsInfo("6461499").Wait();
+        }
+
+        [TestMethod]
+        public void TestSearchFeeds()
+        {
+            var withoutwait = NewsBlurAPI.SearchFeeds("tech");
+            foreach (var item in withoutwait.Result)
+            {
+                Console.WriteLine(item.Key + ":" + item.Value);
+            }
+        }
     }
 }

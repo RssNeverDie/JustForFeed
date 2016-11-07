@@ -38,8 +38,11 @@
     <Compile Include="Core\AuthenticationBase.cs" />
     <Compile Include="Core\FeedInfoBase.cs" />
     <Compile Include="NewsBlurModel\faviconsresponse.cs" />
+    <Compile Include="NewsBlurModel\feedautocompleteresponse.cs" />
     <Compile Include="NewsBlurModel\feedinforesponse.cs" />
     <Compile Include="NewsBlurModel\feedsresponse.cs" />
+    <Compile Include="NewsBlurModel\feedstatisticsresponse.cs" />
+    <Compile Include="NewsBlurModel\feedstrainerresponse.cs" />
     <Compile Include="NewsBlurModel\refreshfeedsresponse.cs" />
     <Compile Include="Util\NewsBlurAPI.cs" />
     <Compile Include="NewsBlurModel\errorresponse.cs" />

@@ -159,5 +159,62 @@ namespace JustForFeed.ThirdPartyAPISDK
             return feedcount;
         }
 
+        /// <summary>
+        /// 获取所有分类标签
+        /// </summary>
+        /// <param name="feedid"></param>
+        public static async Task<List<string>> GetFeedsTrainer(string feedid = "")
+        {
+            string tempurl = host + "/reader/feeds_trainer";
+            if (!string.IsNullOrEmpty(feedid))
+            {
+                tempurl += string.Format("?feed_id={0}", feedid);
+            }
+            var responsestr = await client.GetStringAsync(tempurl);
+            var responseobj = JsonConvert.DeserializeObject<feedstrainerresponse[]>(responsestr);
+            List<string> alltags = new List<string>();
+            foreach (var item in responseobj)
+            {
+                foreach (var subitem in item.feed_tags)
+                {
+                    if (subitem != null && subitem.Count() > 0 && subitem[0] != null)
+                        alltags.Add(subitem[0].ToString());
+                }
+            }
+            return alltags;
+        }
+
+        /// <summary>
+        /// 获取统计信息
+        /// </summary>
+        public static async Task GetStatisticsInfo(string feed_id)
+        {
+            string tempurl = host + "/rss_feeds/statistics/" + feed_id;
+            var responsestr = await client.GetStringAsync(tempurl);
+            var responseobj = JsonConvert.DeserializeObject<feedstatisticsresponse>(responsestr);
+            foreach (var item in responseobj.page_fetch_history)
+            {
+                System.Diagnostics.Debug.WriteLine(item.fetch_date.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 搜索订阅源——返回名称+地址
+        /// </summary>
+        /// <param name="grep"></param>
+        /// <returns></returns>
+        public static async Task<Dictionary<string, string>> SearchFeeds(string grep)
+        {
+            string tempurl = host + "/rss_feeds/feed_autocomplete?term=" + grep;
+            var responsestr = await client.GetStringAsync(tempurl);
+            var responseobj = JsonConvert.DeserializeObject<feedautocompleteresponse[]>(responsestr);
+            Dictionary<string, string> feeds = new Dictionary<string, string>();
+            foreach (var item in responseobj)
+            {
+                feeds.Add(item.tagline, item.value);
+            }
+            return feeds;
+        }
+
     }
 }
