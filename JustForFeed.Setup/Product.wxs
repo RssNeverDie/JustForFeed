@@ -6,8 +6,12 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate />
 
+    <!--添加安装界面-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"/>
     <UIRef Id="WixUI_InstallDir"/>
+    
+    <!--添加许可协议-->
+    <WixVariable Id="WixUILicenseRtf" Value="ProductLicense.rtf" />
     
     <Feature Id="ProductFeature" Title="JustForFeed.Setup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
