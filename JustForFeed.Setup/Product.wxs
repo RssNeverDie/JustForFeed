@@ -13,6 +13,11 @@
     <!--添加许可协议-->
     <WixVariable Id="WixUILicenseRtf" Value="ProductLicense.rtf" />
     
+    <!--添加图片-->
+    <WixVariable Id="WixUIBannerBmp" Value="TopBanner.png" />
+    <WixVariable Id="WixUIDialogBmp" Value="JustForFeed.png" />
+    <WixVariable Id="WixUINewIco" Value="JustForFeed.ico"/>
+    
     <Feature Id="ProductFeature" Title="JustForFeed.Setup" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>

@@ -40,6 +40,9 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TopBanner.png" />
+    <Content Include="JustForFeed.png" />
+    <Content Include="JustForFeed.ico" />
     <Content Include="ProductLicense.rtf" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
