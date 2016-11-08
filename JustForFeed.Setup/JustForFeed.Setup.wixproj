@@ -45,6 +45,10 @@
     <Content Include="JustForFeed.ico" />
     <Content Include="ProductLicense.rtf" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings1.wxl" />
+    <EmbeddedResource Include="WixUI_zh-CN.wxl" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
